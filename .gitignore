@@ -76,3 +76,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+environments/test/cluster-keys.json
