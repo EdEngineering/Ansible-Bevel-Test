@@ -39,6 +39,11 @@ variable "cluster_node_zones" {
   default = ["us-central1-a"]
 }
 
+variable "node_count" {
+  type    = number
+  default = 3
+}
+
 variable "dns_name" {
   type = string
   default = "evasquezapplaudo.ga."
@@ -50,6 +55,16 @@ variable "org_records" {
 
 }
 
+variable "kms_keyring" {
+  type = string
+  default = "vault-kms-keyring"
+}
+
+variable "kms_crypto_key" {
+  type = string
+  default = "vault-kms-crypto-key"
+}
+
 variable "gcp_service_list" {
   description = "The list of apis necessary for the project"
   type        = list(string)
@@ -57,6 +72,7 @@ variable "gcp_service_list" {
     "cloudresourcemanager.googleapis.com",
     "compute.googleapis.com",
     "dns.googleapis.com",
-    "container.googleapis.com"
+    "container.googleapis.com",
+    # "cloudkms.googleapis.com"
   ]
 }

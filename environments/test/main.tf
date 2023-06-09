@@ -1,25 +1,3 @@
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "4.55.0"
-    }
-  }
-}
-
-provider "google" {
-  project = var.project
-  region  = var.region
-}
-
-data "google_client_config" "default" {}
-
-provider "kubernetes" {
-  host                   = "https://${module.gke.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
-}
-
 resource "google_project_service" "gcp_services" {
   for_each                   = toset(var.gcp_service_list)
   project                    = var.project
@@ -54,7 +32,7 @@ module "gke" {
       auto_repair        = true
       auto_upgrade       = true
       autoscaling        = false
-      node_count         = 3
+      node_count         = var.node_count
       # preemptible        = true
     },
   ]
@@ -154,53 +132,3 @@ module "gke" {
 # }
 
 
-# resource "google_compute_instance" "explorer-vm" {
-#   machine_type = "e2-small"
-#   name         = "explorer-vm"
-#   zone = var.zone
-
-#   metadata_startup_script = <<-SCRIPT
-#     #!/bin/bash
-    
-#     # Update the system
-#     apt-get update
-    
-#     # Install Docker
-#     apt-get install -y docker.io
-    
-#     # Install Docker Compose
-#     apt-get install -y docker-compose
-    
-#     # Install Apache
-#     apt-get install -y apache2
-    
-#     # Start Apache service
-#     systemctl start apache2
-#   SCRIPT
-#   boot_disk {
-#     auto_delete = true
-#     device_name = "explorer-vm"
-
-#     initialize_params {
-#       image = "projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20230606"
-#       size  = 10
-#       type  = "pd-balanced"
-#     }
-
-#     mode = "READ_WRITE"
-#   }
-
-#   tags = ["http-server", "https-server"]
-#   labels = {
-#     goog-ec-src = "vm_add-tf"
-#   }
-
-
-#   network_interface {
-#     access_config {
-#       network_tier = "PREMIUM"
-#     }
-#     subnetwork = "projects/${var.project}/regions/${var.region}/subnetworks/default"
-
-#   }
-# }

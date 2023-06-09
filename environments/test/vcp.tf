@@ -90,7 +90,16 @@ module "gcp-network" {
           ports    = ["443"]
         }]
 
-      }
+      },
+      {
+        name    = "allow-vault-ingress"
+        direction = "INGRESS"
+        ranges   = ["0.0.0.0/0"]
+        allow = [{
+          protocol = "tcp"
+          ports    = ["8200"]
+        }]
+      },
     ]      
 }
 
@@ -102,3 +111,12 @@ data "google_compute_subnetwork" "subnet" {
     module.gcp-network
   ]
 }
+
+# resource "google_compute_address" "vault-ip" {
+#   name         = "vault-ip"
+#   address_type = "EXTERNAL"
+#   region       = var.region
+
+#   depends_on = [ 
+#     google_project_service.gcp_services ]
+# }
