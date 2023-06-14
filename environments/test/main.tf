@@ -32,7 +32,7 @@ module "gke" {
       auto_repair        = true
       auto_upgrade       = true
       autoscaling        = false
-      node_count         = var.node_count
+      node_count         = 4
       # preemptible        = true
     },
   ]
