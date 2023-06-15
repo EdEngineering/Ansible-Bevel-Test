@@ -27,7 +27,7 @@ spec:
     vault:
       reviewer_service: vault-reviewer
       role: vault-role
-      address: http://34.172.169.55:8200
+      address: http://34.148.208.195:8200
       authpath: localcarrier-net-auth
       policy: vault-crypto-peer-carrier-net-ro
       secret_path: secretsv2
@@ -35,4 +35,4 @@ spec:
       imagesecretname: regcred
     
     k8s:
-      kubernetes_url: https://34.72.205.191
+      kubernetes_url: https://35.190.135.94
