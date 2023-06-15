@@ -19,7 +19,7 @@ resource "helm_release" "consul" {
   namespace  = kubernetes_namespace.consul.metadata[0].name
 
   values = [
-    templatefile("/home/eduser/Repos/Ansible-Bevel-Test/environments/test/tf-helm/consul/consul.yaml", { replicas =  3 }),
+    templatefile("/home/eduser/Repos/Ansible-Bevel-Test/environments/test/tf-helm/consul/consul.yaml", { replicas =  2 }),
   ] 
 }   
 
