@@ -24,7 +24,7 @@ module "gke" {
   node_pools = [
     {
       name               = "node-pool-01"
-      machine_type       = "e2-medium"
+      machine_type       = "n1-standard-4"
       node_locations     = var.zone
       disk_size_gb       = 100
       disk_type          = "pd-standard"
