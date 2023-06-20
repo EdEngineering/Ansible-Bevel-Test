@@ -54,19 +54,19 @@ network:
       type: orderer
       name: orderer1
       org_name: supplychain               #org_name should match one organization definition below in organizations: key            
-      uri: net-ord-node1.evasquezapplaudo.ga:8443   # Can be external or internal URI for orderer which should be reachable by all peers
+      uri: orderer1.org1ambassador.blockchaincloudpoc.com:8443   # Can be external or internal URI for orderer which should be reachable by all peers
       certificate: /home/bevel/build/orderer1.crt           # Ensure that the directory exists
     - orderer:
       type: orderer
       name: orderer2
       org_name: supplychain               #org_name should match one organization definition below in organizations: key            
-      uri: net-ord-node2.evasquezapplaudo.ga:8443   # Can be external or internal URI for orderer which should be reachable by all peers
+      uri: orderer2.org1ambassador.blockchaincloudpoc.com:8443   # Can be external or internal URI for orderer which should be reachable by all peers
       certificate: /home/bevel/build/orderer2.crt           # Ensure that the directory exists
     - orderer:
       type: orderer
       name: orderer3
       org_name: supplychain               #org_name should match one organization definition below in organizations: key            
-      uri: net-ord-node3.evasquezapplaudo.ga:8443   # Can be external or internal URI for orderer which should be reachable by all peers
+      uri: orderer3.org1ambassador.blockchaincloudpoc.com:8443   # Can be external or internal URI for orderer which should be reachable by all peers
       certificate: /home/bevel/build/orderer3.crt           # Ensure that the directory exists
   
   # The channels defined for a network with participating peers in each channel
@@ -86,9 +86,9 @@ network:
       peers:
       - peer:
         name: peer0
-        gossipAddress: net-carrier-peer0.evasquezapplaudo.ga:8443  # External or internal URI of the gossip peer
-        peerAddress: net-carrier-peer0.evasquezapplaudo.ga:8443 # External URI of the peer
-      ordererAddress: net-ord-node1.evasquezapplaudo.ga:8443             # External or internal URI of the orderer
+        gossipAddress: peer0.carrier-net.org3ambassador.blockchaincloudpoc.com:8443  # External or internal URI of the gossip peer
+        peerAddress: peer0.carrier-net.org3ambassador.blockchaincloudpoc.com:8443 # External URI of the peer
+      ordererAddress: orderer1.org1ambassador.blockchaincloudpoc.com:8443             # External or internal URI of the orderer
     - organization:
       name: store
       type: joiner        # joiner organization will only join the channel and install chaincode
@@ -96,9 +96,9 @@ network:
       peers:
       - peer:
         name: peer0
-        gossipAddress: net-store-peer0.evasquezapplaudo.ga:8443
-        peerAddress: net-store-peer0.evasquezapplaudo.ga:8443 # External URI of the peer
-      ordererAddress: net-ord-node1.evasquezapplaudo.ga:8443
+        gossipAddress: peer0.store-net.org4ambassador.blockchaincloudpoc.com:8443
+        peerAddress: peer0.store-net.org4ambassador.blockchaincloudpoc.com:8443 # External URI of the peer
+      ordererAddress: orderer1.org1ambassador.blockchaincloudpoc.com:8443
     - organization:
       name: warehouse
       type: joiner
@@ -106,9 +106,9 @@ network:
       peers:
       - peer:
         name: peer0
-        gossipAddress: net-warehouse-peer0.evasquezapplaudo.ga:8443
-        peerAddress: net-warehouse-peer0.evasquezapplaudo.ga:8443 # External URI of the peer
-      ordererAddress: net-ord-node1.evasquezapplaudo.ga:8443
+        gossipAddress: peer0.warehouse-net.org5ambassador.blockchaincloudpoc.com:8443
+        peerAddress: peer0.warehouse-net.org5ambassador.blockchaincloudpoc.com:8443 # External URI of the peer
+      ordererAddress: orderer1.org1ambassador.blockchaincloudpoc.com:8443
     - organization:
       name: manufacturer
       type: joiner
@@ -116,9 +116,9 @@ network:
       peers:
       - peer:
         name: peer0
-        gossipAddress: net-manufacturer-peer0.evasquezapplaudo.ga:8443
-        peerAddress: net-manufacturer-peer0.evasquezapplaudo.ga:8443 # External URI of the peer
-      ordererAddress: net-ord-node1.evasquezapplaudo.ga:8443
+        gossipAddress: peer0.manufacturer-net.org2ambassador.blockchaincloudpoc.com:8443
+        peerAddress: peer0.manufacturer-net.org2ambassador.blockchaincloudpoc.com:8443 # External URI of the peer
+      ordererAddress: orderer1.org1ambassador.blockchaincloudpoc.com:8443
     endorsers:
     # Only one peer per org required for endorsement
     - organization:
@@ -126,28 +126,28 @@ network:
       peers:
       - peer:
         name: peer0
-        corepeerAddress: net-carrier-peer0.evasquezapplaudo.ga:8443
+        corepeerAddress: peer0.carrier-net.org3ambassador.blockchaincloudpoc.com:8443
         certificate: "/path/carrier/server.crt" # certificate path for peer
     - organization:
       name: warehouse
       peers:
       - peer:
         name: peer0
-        corepeerAddress: net-warehouse-peer0.evasquezapplaudo.ga:8443
+        corepeerAddress: peer0.warehouse-net.org5ambassador.blockchaincloudpoc.com:8443
         certificate: "/path/warehouse/server.crt" # certificate path for peer
     - organization:
       name: manufacturer
       peers:
       - peer:
         name: peer0
-        corepeerAddress: net-manufacturer-peer0.evasquezapplaudo.ga:8443
+        corepeerAddress: peer0.manufacturer-net.org2ambassador.blockchaincloudpoc.com:8443
         certificate: "/path/manufacturer/server.crt" # certificate path for peer
     - organization:
       name: store
       peers:
       - peer:
         name: peer0
-        corepeerAddress: net-store-peer0.evasquezapplaudo.ga:8443
+        corepeerAddress: peer0.store-net.org4ambassador.blockchaincloudpoc.com:8443
         certificate: "/path/store/server.crt" # certificate path for peer
     genesis:
       name: OrdererGenesis
@@ -306,7 +306,7 @@ network:
           name: peer0          
           type: anchor    # This can be anchor/nonanchor. Atleast one peer should be anchor peer.         
           gossippeeraddress: peer0.manufacturer-net:7051 # Internal Address of the other peer in same Org for gossip, same peer if there is only one peer 
-          peerAddress: net-manufacturer-peer0.evasquezapplaudo.ga:8443 # External URI of the peer 
+          peerAddress: peer0.manufacturer-net.org2ambassador.blockchaincloudpoc.com:8443 # External URI of the peer 
           certificate: /path/manufacturer/peer0.crt # Path to peer Certificate
           cli: disabled      # Creates a peer cli pod depending upon the (enabled/disabled) tag.
           cactus_connector: disabled  # set to enabled to create a cactus connector for Fabric
@@ -401,7 +401,7 @@ network:
           name: peer0          
           type: anchor    # This can be anchor/nonanchor. Atleast one peer should be anchor peer.    
           gossippeeraddress: peer0.carrier-net:7051 # Internal Address of the other peer in same Org for gossip, same peer if there is only one peer
-          peerAddress: net-carrier-peer0.evasquezapplaudo.ga:8443 # External URI of the peer
+          peerAddress: peer0.carrier-net.org3ambassador.blockchaincloudpoc.com:8443 # External URI of the peer
           certificate: /path/carrier/peer0.crt   # Path to peer Certificate
           cli: disabled      # Creates a peer cli pod depending upon the (enabled/disabled) tag.
           cactus_connector: disabled  # set to enabled to create a cactus connector for Fabric
@@ -495,7 +495,7 @@ network:
           name: peer0
           type: anchor    # This can be anchor/nonanchor. Atleast one peer should be anchor peer. 
           gossippeeraddress: peer0.store-net:7051 # Internal Address of the other peer in same Org for gossip, same peer if there is only one peer 
-          peerAddress: net-store-peer0.evasquezapplaudo.ga:8443 # External URI of the peer
+          peerAddress: peer0.store-net.org4ambassador.blockchaincloudpoc.com:8443 # External URI of the peer
           certificate: /path/store/peer0.crt # Path to peer Certificate
           cli: disabled      # Creates a peer cli pod depending upon the (enabled/disabled) tag.
           cactus_connector: disabled  # set to enabled to create a cactus connector for Fabric
@@ -590,7 +590,7 @@ network:
           name: peer0          
           type: anchor    # This can be anchor/nonanchor. Atleast one peer should be anchor peer.   
           gossippeeraddress: peer0.warehouse-net:7051 # Internal Address of the other peer in same Org for gossip, same peer if there is only one peer 
-          peerAddress: net-warehouse-peer0.evasquezapplaudo.ga:8443 # External URI of the peer 
+          peerAddress: peer0.warehouse-net.org5ambassador.blockchaincloudpoc.com:8443 # External URI of the peer 
           certificate: /path/warehouse/peer0.crt # Path to peer Certificate
           cli: disabled      # Creates a peer cli pod depending upon the (enabled/disabled) tag.
           cactus_connector: disabled  # set to enabled to create a cactus connector for Fabric
